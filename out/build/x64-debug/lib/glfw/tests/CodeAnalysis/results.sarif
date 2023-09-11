@@ -1,0 +1,200 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///X:/Projects/GLProject/lib/glfw/deps/linmath.h"
+                },
+                "region": {
+                  "startLine": 560,
+                  "startColumn": 19,
+                  "endLine": 560,
+                  "endColumn": 67
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "quat_from_mat4x4",
+                  "decoratedName": "quat_from_mat4x4",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///X:/Projects/GLProject/lib/glfw/deps/linmath.h"
+                },
+                "region": {
+                  "startLine": 560,
+                  "startColumn": 19,
+                  "endLine": 560,
+                  "endColumn": 51
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "quat_from_mat4x4",
+                  "decoratedName": "quat_from_mat4x4",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///X:/Projects/GLProject/lib/glfw/deps/linmath.h"
+                },
+                "region": {
+                  "startLine": 560,
+                  "startColumn": 19,
+                  "endLine": 560,
+                  "endColumn": 35
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "quat_from_mat4x4",
+                  "decoratedName": "quat_from_mat4x4",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.37.32822.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///X:/Projects/GLProject/lib/glfw/deps/linmath.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "1c8ca50aa6c55d08cbbfba7648ea9664b9244506b1d4c5cccb57ce8e37a3659c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/tests/reopen.c"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "30d7120d01abfdaefb81075a11edbd9ae25d802d25165f8ccc8d830857c974c1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/deps/glad/gl.h"
+          },
+          "hashes": {
+            "sha-256": "eb8848db403870af7fec481ac835ef9ca25406d87a37e44e368c6bfc0e86f141"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/deps/glad/khrplatform.h"
+          },
+          "hashes": {
+            "sha-256": "890c04e4cc75739666aa8ff989a0a37b7f11d9e0ec60bc362b40f91835d11b5c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/include/glfw/glfw3.h"
+          },
+          "hashes": {
+            "sha-256": "0992a30f01ebaa41c32f3f0588e942961abb8a9a52ca8764bd32ee4d7d71a46d"
+          }
+        }
+      ]
+    },
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.37.32822.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/deps/glad_gl.c"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "b69b9caa434f8919e75da82d63d4d5d6b8ee8a37b40898d09a3fb06be1564014"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/deps/glad/gl.h"
+          },
+          "hashes": {
+            "sha-256": "eb8848db403870af7fec481ac835ef9ca25406d87a37e44e368c6bfc0e86f141"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///x:/projects/glproject/lib/glfw/deps/glad/khrplatform.h"
+          },
+          "hashes": {
+            "sha-256": "890c04e4cc75739666aa8ff989a0a37b7f11d9e0ec60bc362b40f91835d11b5c"
+          }
+        }
+      ]
+    }
+  ]
+}
