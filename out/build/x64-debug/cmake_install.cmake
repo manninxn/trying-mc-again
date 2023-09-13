@@ -1,8 +1,8 @@
-# Install script for directory: X:/Projects/GLProject
+# Install script for directory: X:/Projects/c voxel
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "X:/Projects/GLProject/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "X:/Projects/c voxel/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,10 +34,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("X:/Projects/GLProject/out/build/x64-debug/lib/cglm/cmake_install.cmake")
-  include("X:/Projects/GLProject/out/build/x64-debug/lib/glad/cmake_install.cmake")
-  include("X:/Projects/GLProject/out/build/x64-debug/lib/glfw/cmake_install.cmake")
-  include("X:/Projects/GLProject/out/build/x64-debug/src/cmake_install.cmake")
+  include("X:/Projects/c voxel/out/build/x64-debug/lib/cglm/cmake_install.cmake")
+  include("X:/Projects/c voxel/out/build/x64-debug/lib/glad/cmake_install.cmake")
+  include("X:/Projects/c voxel/out/build/x64-debug/lib/glfw/cmake_install.cmake")
+  include("X:/Projects/c voxel/out/build/x64-debug/src/cmake_install.cmake")
 
 endif()
 
@@ -49,5 +49,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "X:/Projects/GLProject/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "X:/Projects/c voxel/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -50,14 +50,14 @@ unset(_cmake_expected_targets)
 add_library(cglm::cglm SHARED IMPORTED)
 
 set_target_properties(cglm::cglm PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "X:/Projects/GLProject/lib/cglm/include"
+  INTERFACE_INCLUDE_DIRECTORIES "X:/Projects/c voxel/lib/cglm/include"
 )
 
 # Import target "cglm::cglm" for configuration "Debug"
 set_property(TARGET cglm::cglm APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(cglm::cglm PROPERTIES
-  IMPORTED_IMPLIB_DEBUG "X:/Projects/GLProject/out/build/x64-debug/lib/cglm/cglm.lib"
-  IMPORTED_LOCATION_DEBUG "X:/Projects/GLProject/out/build/x64-debug/lib/cglm/cglm-0.dll"
+  IMPORTED_IMPLIB_DEBUG "X:/Projects/c voxel/out/build/x64-debug/lib/cglm/cglm.lib"
+  IMPORTED_LOCATION_DEBUG "X:/Projects/c voxel/out/build/x64-debug/lib/cglm/cglm-0.dll"
   )
 
 # This file does not depend on other imported targets which have

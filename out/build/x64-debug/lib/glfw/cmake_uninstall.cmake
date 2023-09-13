@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "X:/Projects/GLProject/out/build/x64-debug/lib/glfw/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: \"X:/Projects/GLProject/out/build/x64-debug/lib/glfw/install_manifest.txt\"")
+if (NOT EXISTS "X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: \"X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt\"")
 endif()
 
-file(READ "X:/Projects/GLProject/out/build/x64-debug/lib/glfw/install_manifest.txt" files)
+file(READ "X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})

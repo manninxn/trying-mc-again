@@ -1,23 +1,19 @@
+#ifndef VBO_H
+#define VBO_H
+
+#include <common.h>
 #include <memory.h>
 #include "glad/glad.h"
 typedef struct {
 	unsigned int id;
 	GLenum target;
-	char dynamic;
+	bool dynamic;
 } vbo;
 
-vbo* vbo_create(GLenum target, char dynamic) {
-	vbo* vbo = malloc(sizeof(vbo));
-	glGenBuffers(1, &vbo->id);
-	vbo->target = target;
-	vbo->dynamic = dynamic;
-	return vbo;
-}
+vbo* vbo_new(GLenum target, bool dynamic);
 
-void vbo_bind(vbo* this) {
-	glBindBuffer(this->target, this->id);
-}
+void vbo_bind(vbo* this);
 
-void vbo_buffer_data(vbo* this, void* data, size_t size) {
-	glBufferData(this->target, size, data, this->dynamic == 1 ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW);
-}
+void vbo_buffer_data(vbo* this, void* data, size_t size);
+
+#endif

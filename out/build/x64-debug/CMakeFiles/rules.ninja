@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: GLProject
+# Project: minecraftc
 # Configurations: Debug
 # =============================================================================
 # =============================================================================
@@ -694,7 +694,7 @@ rule C_EXECUTABLE_LINKER__windows_Debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__GLProject_unscanned_Debug
+rule C_COMPILER__minecraftc_unscanned_Debug
   deps = msvc
   command = X:\Programs\VisualStudio\VC\Tools\MSVC\14.37.32822\bin\Hostx64\x64\cl.exe  /nologo $DEFINES $INCLUDES $FLAGS /showIncludes /Fo$out /Fd$TARGET_COMPILE_PDB /FS -c $in
   description = Building C object $out
@@ -703,7 +703,7 @@ rule C_COMPILER__GLProject_unscanned_Debug
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__GLProject_Debug
+rule C_EXECUTABLE_LINKER__minecraftc_Debug
   command = cmd.exe /C "$PRE_LINK && X:\Programs\VisualStudio\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E vs_link_exe --intdir=$OBJECT_DIR --rc="X:\Windows Kits\10\bin\10.0.22621.0\x64\rc.exe" --mt="X:\Windows Kits\10\bin\10.0.22621.0\x64\mt.exe" --manifests $MANIFESTS -- X:\Programs\VisualStudio\VC\Tools\MSVC\14.37.32822\bin\Hostx64\x64\link.exe /nologo $in  /out:$TARGET_FILE /implib:$TARGET_IMPLIB /pdb:$TARGET_PDB /version:0.0 $LINK_FLAGS $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -713,7 +713,7 @@ rule C_EXECUTABLE_LINKER__GLProject_Debug
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = X:\Programs\VisualStudio\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --regenerate-during-build -SX:\Projects\GLProject -BX:\Projects\GLProject\out\build\x64-debug
+  command = X:\Programs\VisualStudio\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe --regenerate-during-build -S"X:\Projects\c voxel" -B"X:\Projects\c voxel\out\build\x64-debug"
   description = Re-running CMake...
   generator = 1
 

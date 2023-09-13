@@ -1,7 +1,7 @@
-prefix=X:/Projects/GLProject/out/install/x64-debug
+prefix=X:/Projects/c voxel/out/install/x64-debug
 exec_prefix=${prefix}
-includedir=X:/Projects/GLProject/out/install/x64-debug/include
-libdir=X:/Projects/GLProject/out/install/x64-debug/lib
+includedir=X:/Projects/c voxel/out/install/x64-debug/include
+libdir=X:/Projects/c voxel/out/install/x64-debug/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input
