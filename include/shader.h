@@ -3,6 +3,7 @@
 #include "common.h"
 #include <glad/glad.h>
 #include "io.h"
+#include "texture.h"
 
 typedef struct {
 	unsigned int id;
@@ -24,6 +25,6 @@ void shader_uniform_ivec4(shader* this, char* name, ivec4 value);
 void shader_uniform_mat2(shader* this, char* name, mat2 value);
 void shader_uniform_mat3(shader* this, char* name, mat3 value);
 void shader_uniform_mat4(shader* this, char* name, mat4 value);
-
+void shader_uniform_texture(shader* this, char* name, texture* texture, GLuint n);
 void shader_uniform_view_proj(shader* this, vp vp);
 #endif

@@ -330,6 +330,15 @@ GLFW_VULKAN_STATIC:BOOL=OFF
 USE_MSVC_RUNTIME_LIBRARY_DLL:BOOL=ON
 
 //Value Computed by CMake
+arc4random_BINARY_DIR:STATIC=X:/Projects/c voxel/out/build/x64-debug/lib/arc4random
+
+//Value Computed by CMake
+arc4random_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+arc4random_SOURCE_DIR:STATIC=X:/Projects/c voxel/lib/arc4random
+
+//Value Computed by CMake
 c voxel_BINARY_DIR:STATIC=X:/Projects/c voxel/out/build/x64-debug
 
 //Value Computed by CMake

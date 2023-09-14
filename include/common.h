@@ -12,6 +12,8 @@ struct {
 	GLFWwindow* window;
 	float delta_time;
 	camera* cam;
+	long long ticks;
+	int tps;
 
 } state;
 #define NORTH 0
@@ -20,6 +22,8 @@ struct {
 #define WEST 3
 #define TOP 4
 #define BOTTOM 5
+
+#define remap(value, low1, high1, low2, high2) ((low2) + ((value) - (low1)) * ((high2) - (low2)) / ((high1) - (low1)))
 
 static const char* cardinal_directions[6] = {
 	"NORTH (+Z)",

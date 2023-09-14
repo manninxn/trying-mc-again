@@ -1,5 +1,6 @@
 #include "chunk.h"
 #include <stdio.h>
+#include "block.h"
 #include <memory.h>
 #define FNL_IMPL
 #include "noise.h"
@@ -22,20 +23,19 @@ chunk* chunk_new(int xpos, int ypos, int zpos) {
 
 //x = index / (size * size)
 // y = (index / size) % size
+// 
 // z = index % size
 
-
-
-unsigned int build_vert_data(int x, int y, int z) {
+ 
+unsigned int build_vert_data(int x, int y, int z, int block_id, int direction, int index) {
 	//printf(" Added vertex (%d, %d, %d)\n", x, y, z);
-	return (z << 12u) | (y << 18u) | (x << 24u);
+	ivec2 atlas_coords = { atlas_coordinates[direction][block_id * 2], atlas_coordinates[direction][block_id * 2 + 1] };
+ 	return (z << 12u) | (y << 18u) | (x << 24u) | (index << 30u) | (atlas_coords[0] << 8u) | (atlas_coords[1] << 4u);
 }
 
 unsigned int build_lighting_data(int normal_index, int ao_value) {
 	return (normal_index) | (ao_value << 3u);
 }
-
-
 int vertex_ao(side1, side2, corner) {
 	if (side1 && side2) {
 		return 0;
@@ -94,16 +94,15 @@ void chunk_generate(chunk* this) {
 				int ao = vertex_ao(side1, side2, corner);
 				aos[vert] = build_lighting_data(j, ao);
 				const unsigned int* vertex = &CUBE_VERTICES[CUBE_INDICES[(j * 6) + UNIQUE_INDICES[vert]] * 3];
-				v[vert] = build_vert_data(vertex[0] + x, vertex[1] + y, vertex[2] + z);
+				v[vert] = build_vert_data(vertex[0] + x, vertex[1] + y, vertex[2] + z, block, j, vert);
 			}
 			for (int vert = 0; vert < 4; vert++) {
-
 				int index = vert;
 				if (aos[0] + aos[2] > aos[1] + aos[3]) {
 				
 					index = (vert + 3) % 4;
 				}
-				
+
 				verts[num_verts] = v[index];
 				num_verts++;
 				verts[num_verts] = aos[index];
@@ -128,6 +127,6 @@ void chunk_generate(chunk* this) {
 void chunk_render(chunk* this) {
 	vbo_bind(this->vbo);
 	vbo_bind(this->ebo);
-	vbo_bind(this->vao);
+	vao_bind(this->vao);
 	glDrawElements(GL_TRIANGLES, this->num_elems, GL_UNSIGNED_INT, 0);
 }

@@ -6,12 +6,18 @@
 #include "io.h"
 #include "vbo.h"
 #include "vao.h"
+#include "texture.h"
 #include "shader.h"
 #include "chunk.h"
+#include "block.h"
+#include <time.h>
+#include "skybox.h"
+
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
     camera_handle_mouse_movement(state.cam, (float)xposIn, (float)yposIn);
 }
+
 
 
 int main()
@@ -42,12 +48,13 @@ int main()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glEnable(GL_DEPTH_TEST);
-
+    glEnable(GL_PROGRAM_POINT_SIZE);
 
     //glDepthMask(GL_FALSE);
     glDepthFunc(GL_LEQUAL);
-
-    shader* shader = shader_create("res/frag.glsl", "res/vert.glsl");
+    block_init();
+    skybox_init();
+    shader* chunk_shader = shader_create("res/chunk.frag", "res/chunk.vert");
 
     /* Loop until the user closes the window */
     state.delta_time = 0.016f;
@@ -58,21 +65,36 @@ int main()
 
     glfwSetInputMode(state.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     bool exit = false;
+
+    state.ticks = 0;
+    state.tps = 20;
+    
+    clock_t time = clock();
+
+    texture* atlas = texture_from_file("res/atlas.png");
+    shader_uniform_texture(chunk_shader, "atlas", atlas, 0);
     while (!glfwWindowShouldClose(state.window) && !exit)
     {
+        if (time + CLOCKS_PER_SEC / state.tps < clock()) {
+            state.ticks++;
+            
+            time = clock();
+        }
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        skybox_render();
+
         camera_handle_input(state.cam);
         //printf("(%f, %f, %f) %s\n", state.cam->look.x, state.cam->look.y, state.cam->look.z, cardinal_directions[camera_get_cardinal_direction(state.cam)]);
-        shader_use(shader);
-        shader_uniform_view_proj(shader, camera_get_view_projection(state.cam));
+        shader_use(chunk_shader);
+        shader_uniform_view_proj(chunk_shader, camera_get_view_projection(state.cam));
         chunk_render(chunk);
 
         if (glfwGetKey(state.window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             exit = true;
         }
-         
+
         /* Swap front and back buffers */
         glfwSwapBuffers(state.window);
 

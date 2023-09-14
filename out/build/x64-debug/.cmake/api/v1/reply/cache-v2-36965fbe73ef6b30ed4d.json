@@ -1766,6 +1766,42 @@
 			"value" : "X:/Projects/c voxel/out/install/x64-debug"
 		},
 		{
+			"name" : "arc4random_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "X:/Projects/c voxel/out/build/x64-debug/lib/arc4random"
+		},
+		{
+			"name" : "arc4random_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "OFF"
+		},
+		{
+			"name" : "arc4random_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "X:/Projects/c voxel/lib/arc4random"
+		},
+		{
 			"name" : "c voxel_BINARY_DIR",
 			"properties" : 
 			[
