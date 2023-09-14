@@ -72,7 +72,7 @@ int main()
         if (glfwGetKey(state.window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             exit = true;
         }
-
+         
         /* Swap front and back buffers */
         glfwSwapBuffers(state.window);
 

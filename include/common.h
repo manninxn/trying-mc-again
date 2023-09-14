@@ -14,6 +14,12 @@ struct {
 	camera* cam;
 
 } state;
+#define NORTH 0
+#define SOUTH 1
+#define EAST 2
+#define WEST 3
+#define TOP 4
+#define BOTTOM 5
 
 static const char* cardinal_directions[6] = {
 	"NORTH (+Z)",

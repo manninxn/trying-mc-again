@@ -1,5 +1,8 @@
 #include "io.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 char* load_file(const char* path) {
 		FILE* fp;
 		long size = 0;
@@ -17,4 +20,9 @@ char* load_file(const char* path) {
 		fclose(fp);
 
 		return data;
+}
+
+unsigned char* load_image(const char* path, int* w, int* h, int* channels) {
+	unsigned char* img = stbi_load(path, w, h, channels, NULL);
+	return img;
 }

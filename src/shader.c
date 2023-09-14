@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "texture.h"
 
 shader* shader_create(const char* fragment_path, const char* vertex_path) {
 	shader* this = malloc(sizeof(shader));
@@ -60,8 +61,8 @@ void shader_uniform_view_proj(shader* this, vp vp) {
 }
 
 
-//void shader_uniform_texture(shader* this, char* name, struct Texture texture, GLuint n) {
-//	glActiveTexture(GL_TEXTURE0 + n);
-//	texture_bind(texture);
-//	glUniform1i(glGetUniformLocation(this->id, (const GLchar*)name), n);
-//}
+void shader_uniform_texture(shader* this, char* name, texture* texture, GLuint n) {
+	glActiveTexture(GL_TEXTURE0 + n);
+	texture_bind(texture);
+	glUniform1i(glGetUniformLocation(this->id, (const GLchar*)name), n);
+}

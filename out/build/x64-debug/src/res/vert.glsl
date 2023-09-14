@@ -22,10 +22,10 @@ float normal_shades[6] = {
 };
 
 float ao_shades[4] = {
-1.0f,
 0.75f,
-0.5f,
-0.25f
+0.85f,
+0.95f,
+1.0f,
 };
 
 void main()

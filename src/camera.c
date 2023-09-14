@@ -8,7 +8,7 @@ camera* camera_new(float fov, float near_clip, float far_clip) {
 	this->far_clip = far_clip;
 	this->near_clip = near_clip;
 	this->fov = fov;
-	this->pos = (vec3s) { 0, 0, 0 };
+	this->pos = (vec3s) { 0, 8, 0 };
 	this->look = (vec3s){ 1, 0, 1 };
 	this->last_x = 0;
 	this->last_y = 0;
