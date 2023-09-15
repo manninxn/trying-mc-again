@@ -42,7 +42,7 @@ int vertex_ao(side1, side2, corner) {
 	}
 	return 3 - (side1 + side2 + corner);
 }
-void chunk_generate(chunk* this) {
+void chunk_build_mesh(chunk* this) {
 	unsigned int* verts = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 4 * 6 * 2);
 	unsigned int* elements = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 6 * 6);
 	

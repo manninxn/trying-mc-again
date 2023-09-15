@@ -19,6 +19,12 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
     camera_handle_mouse_movement(state.cam, (float)xposIn, (float)yposIn);
 }
 
+void window_resize_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+    state.cam->viewport_height = height;
+    state.cam->viewport_width = width;
+}
+
 
 int main()
 { 
@@ -37,6 +43,7 @@ int main()
     /* Make the window's context current */
     glfwMakeContextCurrent(state.window);
     glfwSetCursorPosCallback(state.window, mouse_callback);
+    glfwSetWindowSizeCallback(state.window, window_resize_callback);
     gladLoadGL();
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -64,7 +71,7 @@ int main()
     state.cam = camera_new(64, 0.1, 100);
 
     chunk* chunk = chunk_new(0, 0, 0);
-    chunk_generate(chunk);
+    chunk_build_mesh(chunk);
 
     glfwSetInputMode(state.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     bool exit = false;

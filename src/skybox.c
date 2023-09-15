@@ -1,5 +1,7 @@
 #include "skybox.h"
 
+#define TICKS_PER_DAY 24000
+
 void gaussian(float mu, float sigma, float* a) {
 	float epsilon = FLT_EPSILON;
 	float two_pi = 2.0f * M_PI;
@@ -56,7 +58,7 @@ void sun_moon_render() {
 	shader_use(skybox.sun_and_moon.shader);
 	vp viewproj = camera_get_view_projection(state.cam);
 
-	float angle = remap((float)(state.ticks % 2400), 0.f, 2400.f, 0.f, 360.f);
+	float angle = remap((float)(state.ticks % TICKS_PER_DAY), 0.f, TICKS_PER_DAY, 0.f, 360.f);
 	glm_make_rad(&angle);
 
 	vec3 axis = { 0, 0, 1 };
@@ -75,7 +77,7 @@ void stars_render() {
 	shader_use(skybox.stars.shader);
 	vp viewproj = camera_get_view_projection(state.cam);
 
-	float angle = remap((float)(state.ticks % 2400), 0.f, 2400.f, 0.f, 360.f);
+	float angle = remap((float)(state.ticks % TICKS_PER_DAY), 0.f, TICKS_PER_DAY, 0.f, 360.f);
 	//printf("%d\n", state.ticks);
 	glm_make_rad(&angle);
 
@@ -114,7 +116,7 @@ void background_init() {
 void background_render() {
 	shader_use(skybox.background.shader);
 
-	float angle = remap((float)(state.ticks % 2400), 0.f, 2400.f, 0.f, 360.f);
+	float angle = remap((float)(state.ticks % TICKS_PER_DAY), 0.f, TICKS_PER_DAY, 0.f, 360.f);
 	glm_make_rad(&angle);
 	vec3 axis = { 0, 0, 1 };
 

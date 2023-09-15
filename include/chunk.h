@@ -138,7 +138,7 @@ static const unsigned int CUBE_VERTICES[] = {
 
 chunk* chunk_new(int xpos, int ypos, int zpos);
 
-void chunk_generate(chunk* this);
+void chunk_build_mesh(chunk* this);
 
 void chunk_render(chunk* this);
 

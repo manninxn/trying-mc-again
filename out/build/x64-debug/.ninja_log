@@ -417,3 +417,7 @@
 253	558	7164577845674328	src/minecraftc.exe	8faea9900218b9d8
 37	318	7164578690397038	src/CMakeFiles/minecraftc.dir/vao.c.obj	6726f144dfe2ef09
 319	654	7164578692918579	src/minecraftc.exe	8faea9900218b9d8
+13	231	7164582671068262	src/CMakeFiles/minecraftc.dir/skybox.c.obj	5dcdda0237900b24
+232	652	7164582674537525	src/minecraftc.exe	8faea9900218b9d8
+36	290	7164583667015983	src/CMakeFiles/minecraftc.dir/main.c.obj	e3d169d43c795c42
+291	613	7164583669271105	src/minecraftc.exe	8faea9900218b9d8
