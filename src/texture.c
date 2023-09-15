@@ -1,9 +1,9 @@
 #include "texture.h"
 #include "stb_image.h"
 
+
 texture* texture_from_file(const char* file) {
 	texture* this = malloc(sizeof(texture));
-
 	glGenTextures(1, &this->handle);
 	stbi_set_flip_vertically_on_load(1);
 	unsigned char* img_data = load_image(file, &this->width, &this->height, &this->channels);
@@ -16,9 +16,8 @@ texture* texture_from_file(const char* file) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-
 	if (img_data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->width, this->height, 0, GL_RGB, GL_UNSIGNED_BYTE, img_data);
+		glTexImage2D(GL_TEXTURE_2D, 0, this->channels == 3 ? GL_RGB : GL_RGBA, this->width, this->height, 0, this->channels == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, img_data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 

@@ -1,6 +1,40 @@
 #include "shader.h"
 #include "texture.h"
 
+shader* shader_create_with_geom(const char* fragment_path, const char* vertex_path, const char* geom_path) {
+	shader* this = malloc(sizeof(shader));
+	
+	char* fs = load_file(fragment_path);
+	char* vs = load_file(vertex_path);
+	char* gs = load_file(geom_path);
+
+	int frag_handle = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(frag_handle, 1, &fs, NULL);
+	glCompileShader(frag_handle);
+
+	int vert_handle = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vert_handle, 1, &vs, NULL);
+	glCompileShader(vert_handle);
+
+	int geom_handle = glCreateShader(GL_GEOMETRY_SHADER);
+	glShaderSource(geom_handle, 1, &gs, NULL);
+	glCompileShader(geom_handle);
+
+	this->id = glCreateProgram();
+	glAttachShader(this->id, frag_handle);
+	glAttachShader(this->id, geom_handle);
+	glAttachShader(this->id, vert_handle);
+
+	glLinkProgram(this->id);
+	shader_use(this);
+
+	glDeleteShader(geom_handle);
+	glDeleteShader(frag_handle);
+	glDeleteShader(vert_handle);
+
+	return this;
+}
+
 shader* shader_create(const char* fragment_path, const char* vertex_path) {
 	shader* this = malloc(sizeof(shader));
 
@@ -63,6 +97,6 @@ void shader_uniform_view_proj(shader* this, vp vp) {
 
 void shader_uniform_texture(shader* this, char* name, texture* texture, GLuint n) {
 	glActiveTexture(GL_TEXTURE0 + n);
-	texture_bind(texture);
 	glUniform1i(glGetUniformLocation(this->id, (const GLchar*)name), n);
+ 	texture_bind(texture);
 }

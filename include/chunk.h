@@ -26,6 +26,7 @@ static const ivec3 faces[6] = {
 };
 
 
+
 static const unsigned int FACE_INDICES[] =
 { 1, 0, 3, 1, 3, 2 };
 

@@ -9,10 +9,10 @@ typedef struct {
 	unsigned int id;
 } shader;
 
+
 shader* shader_create(const char* fragment_path, const char* vertex_path);
-
 void shader_use(shader* this);
-
+shader* shader_create_with_geom(const char* fragment_path, const char* vertex_path, const char* geom_path);
 
 void shader_uniform_float(shader* this, char* name, float value);
 void shader_uniform_vec2(shader* this, char* name, vec2 value);

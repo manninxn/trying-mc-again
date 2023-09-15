@@ -2,6 +2,7 @@
 #include "common.h"
 vec3 view_up = { 0, 1, 0 };
 
+
 camera* camera_new(float fov, float near_clip, float far_clip) {
 
 	camera* this = malloc(sizeof(camera));
@@ -14,7 +15,7 @@ camera* camera_new(float fov, float near_clip, float far_clip) {
 	this->last_y = 0;
 	this->pitch = 0;
 	this->yaw = 0;
-	this->speed = 0.05f;
+	this->speed = 1.f;
 	this->viewport_width = 1920;
 	this->viewport_height = 1080;
 
@@ -101,6 +102,7 @@ void camera_handle_mouse_movement(camera* this, float xpos, float ypos) {
 	glm_vec3_normalize(&this->look.raw);
 	//printf("%f, %f, %f\n", this->look.x, this->look.y, this->look.z);
 }
+
 
 int camera_get_cardinal_direction(camera* this) {
 	float max = max(max(fabs(this->look.x), fabs(this->look.y)), fabs(this->look.z));

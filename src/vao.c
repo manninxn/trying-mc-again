@@ -1,5 +1,6 @@
 #include "vao.h"
 
+
 vao* vao_new() {
 	vao* vao = malloc(sizeof(vao));
 	glGenVertexArrays(1, &vao->id);

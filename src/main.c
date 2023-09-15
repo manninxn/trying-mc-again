@@ -13,11 +13,11 @@
 #include <time.h>
 #include "skybox.h"
 
+
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
     camera_handle_mouse_movement(state.cam, (float)xposIn, (float)yposIn);
 }
-
 
 
 int main()
@@ -44,11 +44,14 @@ int main()
         return -1;
     }
 
+
     glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_PROGRAM_POINT_SIZE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //glDepthMask(GL_FALSE);
     glDepthFunc(GL_LEQUAL);
@@ -69,16 +72,16 @@ int main()
     state.ticks = 0;
     state.tps = 20;
     
+    clock_t tick_timer = clock();
     clock_t time = clock();
-
     texture* atlas = texture_from_file("res/atlas.png");
     shader_uniform_texture(chunk_shader, "atlas", atlas, 0);
     while (!glfwWindowShouldClose(state.window) && !exit)
     {
-        if (time + CLOCKS_PER_SEC / state.tps < clock()) {
+        if (tick_timer + CLOCKS_PER_SEC / state.tps < clock()) {
             state.ticks++;
             
-            time = clock();
+            tick_timer = clock();
         }
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -100,8 +103,12 @@ int main()
 
         /* Poll for and process events */
         glfwPollEvents();
+        state.delta_time = (float)(clock() - time) / (float)CLOCKS_PER_SEC;
+        //printf("%f\n", state.delta_time);
+        time = clock();
     }
 
     glfwTerminate();
     return 0;
 }
+

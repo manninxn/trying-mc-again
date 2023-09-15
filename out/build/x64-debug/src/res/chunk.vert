@@ -18,13 +18,13 @@ float normal_shades[6] = {
  0.9f,
  0.87f,
  1.0f,
- 0.3f
+ 0.6f
 };
 
 float ao_shades[4] = {
-0.75f,
-0.85f,
-0.95f,
+0.4f,
+0.6f,
+0.8f,
 1.0f,
 };
 

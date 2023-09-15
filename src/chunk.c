@@ -26,7 +26,7 @@ chunk* chunk_new(int xpos, int ypos, int zpos) {
 // 
 // z = index % size
 
- 
+
 unsigned int build_vert_data(int x, int y, int z, int block_id, int direction, int index) {
 	//printf(" Added vertex (%d, %d, %d)\n", x, y, z);
 	ivec2 atlas_coords = { atlas_coordinates[direction][block_id * 2], atlas_coordinates[direction][block_id * 2 + 1] };
@@ -61,7 +61,8 @@ void chunk_generate(chunk* this) {
 		int y = (i / CHUNK_SIZE) % CHUNK_SIZE;
 		int z = i % CHUNK_SIZE;
 		float height = 1.0f + fnlGetNoise2D(&noise, x, z);
-		this->blocks[i] = (y - 5) < (height * 1.5f);
+		//this->blocks[i] = (y - 5) < (height * 1.5f);
+		this->blocks[i] = fnlGetNoise3D(&noise, x, y, z) > 0;
 		unsigned char block = this->blocks[i];
 	}
 	noise.frequency = 0.1f;
