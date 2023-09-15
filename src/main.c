@@ -12,6 +12,7 @@
 #include "block.h"
 #include <time.h>
 #include "skybox.h"
+#include <math.h>
 
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
@@ -82,6 +83,8 @@ int main()
     clock_t tick_timer = clock();
     clock_t time = clock();
     texture* atlas = texture_from_file("res/atlas.png");
+    state.sky_light = 15;
+    int light_level = state.sky_light;
     shader_uniform_texture(chunk_shader, "atlas", atlas, 0);
     while (!glfwWindowShouldClose(state.window) && !exit)
     {
@@ -94,11 +97,15 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         skybox_render();
-
+        
         camera_handle_input(state.cam);
         //printf("(%f, %f, %f) %s\n", state.cam->look.x, state.cam->look.y, state.cam->look.z, cardinal_directions[camera_get_cardinal_direction(state.cam)]);
         shader_use(chunk_shader);
         shader_uniform_view_proj(chunk_shader, camera_get_view_projection(state.cam));
+        if (light_level != state.sky_light) {
+            light_level = state.sky_light;
+            chunk_build_lighting(chunk);
+        }
         chunk_render(chunk);
 
         if (glfwGetKey(state.window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {

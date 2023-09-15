@@ -14,6 +14,7 @@ struct {
 	camera* cam;
 	long long ticks;
 	int tps;
+	int sky_light;
 
 } state;
 #define NORTH 0

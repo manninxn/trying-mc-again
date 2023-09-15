@@ -10,7 +10,8 @@ typedef struct {
 
 #define AIR 0
 #define GRASS 1
-#define NUM_BLOCKS 2
+#define DIRT 2
+#define NUM_BLOCKS 3
 
 #define set_atlas_coord(block, direction, x, y)  { \
 	atlas_coordinates[direction][block * 2] = x;	\
@@ -31,6 +32,7 @@ extern int atlas_coordinates[6][NUM_BLOCKS * 2];
 static inline void block_init() {
 	_BLOCK_DECL(air)
 	_BLOCK_DECL(grass)
+	_BLOCK_DECL(dirt)
 }
 
 

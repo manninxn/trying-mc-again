@@ -13,7 +13,7 @@ include_directories(${minecraftc_SOURCE_DIR}/lib/cglm/include)
 link_directories(${minecraftc_SOURCE_DIR}/lib/cglm/src)
 
 
-add_executable(minecraftc main.c "vbo.c" "vao.c" io.c "shader.c" "camera.c" "chunk.c" "texture.c" "blocks/grass.c" "block.c" "blocks/air.c" "skybox.c")
+add_executable(minecraftc main.c "vbo.c" "vao.c" io.c "shader.c" "camera.c" "chunk.c" "texture.c" "blocks/grass.c" "block.c" "blocks/air.c" "skybox.c" "blocks/dirt.c")
 
 add_custom_command(TARGET minecraftc PRE_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory

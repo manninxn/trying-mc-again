@@ -54,7 +54,15 @@ void main()
 
 	normal = (lighting_data & 0x7u);
 	ao = (lighting_data & 0x18u) >> 3u;
-	shade = normal_shades[normal] * ao_shades[ao];
+
+	uint sky_light = (lighting_data & 0x1E0u) >> 5u;
+	uint block_light = (lighting_data & 0x1E00u) >> 9u;
+
+	float sky_light_brightness = 0.25f + 0.05f * float(sky_light);
+	float block_light_brightness = 0.25f + 0.05f * float(block_light);
+	float light_level = max(sky_light_brightness, block_light_brightness);
+
+	shade = normal_shades[normal] * ao_shades[ao] * light_level;
 	float sprite_size = 16.f / 256.f;
 
 	texCoord = texCoords[index] * sprite_size + vec2(sprite_x * sprite_size, sprite_y * sprite_size);

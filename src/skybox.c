@@ -1,6 +1,6 @@
 #include "skybox.h"
 
-#define TICKS_PER_DAY 24000
+#define TICKS_PER_DAY 2400
 
 void gaussian(float mu, float sigma, float* a) {
 	float epsilon = FLT_EPSILON;
@@ -130,6 +130,7 @@ void background_render() {
 	float dot = glm_vec3_dot(axis, upvec);
 	printf("%f\n", dot);
 	shader_uniform_float(skybox.background.shader, "time", dot);
+	state.sky_light = 15 - max(min(dot * 4, 1), 0) * 15;
 
 	vbo_bind(skybox.background.vbo);
 	vao_bind(skybox.background.vao);

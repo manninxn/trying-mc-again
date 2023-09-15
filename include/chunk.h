@@ -8,10 +8,12 @@
 typedef struct {
 	unsigned char blocks[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 	vec3 pos;
-	vbo* vbo;
+	vbo* vert_vbo;
+	vbo* lighting_vbo;
 	vbo* ebo;
 	vao* vao;
 	unsigned int num_elems;
+	unsigned int num_verts;
 } chunk;
 
 #define chunk_block_at(chunk, x, y, z) (chunk->blocks[((x) * CHUNK_SIZE * CHUNK_SIZE) + ((y) * CHUNK_SIZE) + (z)])
@@ -139,7 +141,7 @@ static const unsigned int CUBE_VERTICES[] = {
 chunk* chunk_new(int xpos, int ypos, int zpos);
 
 void chunk_build_mesh(chunk* this);
-
+void chunk_build_lighting(chunk* this);
 void chunk_render(chunk* this);
 
 #define block_or_default(chunk, x, y, z, def)  (block_in_bounds(x, y, z) ? chunk_block_at(chunk, x, y, z) : def)
