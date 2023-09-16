@@ -3029,6 +3029,14 @@ build src\CMakeFiles\minecraftc.dir\blocks\dirt.c.obj: C_COMPILER__minecraftc_un
   TARGET_COMPILE_PDB = src\CMakeFiles\minecraftc.dir\
   TARGET_PDB = src\minecraftc.pdb
 
+build src\CMakeFiles\minecraftc.dir\world.c.obj: C_COMPILER__minecraftc_unscanned_Debug X$:\Projects\c$ voxel\src\world.c || cmake_object_order_depends_target_minecraftc
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
+  INCLUDES = -I"X:\Projects\c voxel\include" -I"X:\Projects\c voxel\lib\glfw\include" -I"X:\Projects\c voxel\lib\glad\include" -I"X:\Projects\c voxel\lib\cglm\include"
+  OBJECT_DIR = src\CMakeFiles\minecraftc.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\minecraftc.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\minecraftc.dir\
+  TARGET_PDB = src\minecraftc.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target minecraftc
@@ -3037,7 +3045,7 @@ build src\CMakeFiles\minecraftc.dir\blocks\dirt.c.obj: C_COMPILER__minecraftc_un
 #############################################
 # Link the executable src\minecraftc.exe
 
-build src\minecraftc.exe: C_EXECUTABLE_LINKER__minecraftc_Debug src\CMakeFiles\minecraftc.dir\main.c.obj src\CMakeFiles\minecraftc.dir\vbo.c.obj src\CMakeFiles\minecraftc.dir\vao.c.obj src\CMakeFiles\minecraftc.dir\io.c.obj src\CMakeFiles\minecraftc.dir\shader.c.obj src\CMakeFiles\minecraftc.dir\camera.c.obj src\CMakeFiles\minecraftc.dir\chunk.c.obj src\CMakeFiles\minecraftc.dir\texture.c.obj src\CMakeFiles\minecraftc.dir\blocks\grass.c.obj src\CMakeFiles\minecraftc.dir\block.c.obj src\CMakeFiles\minecraftc.dir\blocks\air.c.obj src\CMakeFiles\minecraftc.dir\skybox.c.obj src\CMakeFiles\minecraftc.dir\blocks\dirt.c.obj | lib\glfw\src\glfw3.lib lib\glad\src\glad.lib lib\cglm\cglm.lib || lib\cglm\cglm-0.dll lib\glad\src\glad.lib lib\glfw\src\glfw3.lib
+build src\minecraftc.exe: C_EXECUTABLE_LINKER__minecraftc_Debug src\CMakeFiles\minecraftc.dir\main.c.obj src\CMakeFiles\minecraftc.dir\vbo.c.obj src\CMakeFiles\minecraftc.dir\vao.c.obj src\CMakeFiles\minecraftc.dir\io.c.obj src\CMakeFiles\minecraftc.dir\shader.c.obj src\CMakeFiles\minecraftc.dir\camera.c.obj src\CMakeFiles\minecraftc.dir\chunk.c.obj src\CMakeFiles\minecraftc.dir\texture.c.obj src\CMakeFiles\minecraftc.dir\blocks\grass.c.obj src\CMakeFiles\minecraftc.dir\block.c.obj src\CMakeFiles\minecraftc.dir\blocks\air.c.obj src\CMakeFiles\minecraftc.dir\skybox.c.obj src\CMakeFiles\minecraftc.dir\blocks\dirt.c.obj src\CMakeFiles\minecraftc.dir\world.c.obj | lib\glfw\src\glfw3.lib lib\glad\src\glad.lib lib\cglm\cglm.lib || lib\cglm\cglm-0.dll lib\glad\src\glad.lib lib\glfw\src\glfw3.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = lib\glfw\src\glfw3.lib  lib\glad\src\glad.lib  lib\cglm\cglm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
