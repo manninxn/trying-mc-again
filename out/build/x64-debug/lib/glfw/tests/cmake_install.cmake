@@ -1,8 +1,8 @@
-# Install script for directory: X:/Projects/c voxel/lib/glfw/tests
+# Install script for directory: Z:/Github/c voxel/lib/glfw/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "X:/Projects/c voxel/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "Z:/Github/c voxel/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

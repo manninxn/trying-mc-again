@@ -7,7 +7,7 @@ if(CMAKE_VERSION VERSION_LESS "2.8.3")
    message(FATAL_ERROR "CMake >= 2.8.3 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 2.8.3...3.24)
+cmake_policy(VERSION 2.8.3...3.22)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -50,14 +50,14 @@ unset(_cmake_expected_targets)
 add_library(cglm::cglm SHARED IMPORTED)
 
 set_target_properties(cglm::cglm PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "X:/Projects/c voxel/lib/cglm/include"
+  INTERFACE_INCLUDE_DIRECTORIES "Z:/Github/c voxel/lib/cglm/include"
 )
 
 # Import target "cglm::cglm" for configuration "Debug"
 set_property(TARGET cglm::cglm APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(cglm::cglm PROPERTIES
-  IMPORTED_IMPLIB_DEBUG "X:/Projects/c voxel/out/build/x64-debug/lib/cglm/cglm.lib"
-  IMPORTED_LOCATION_DEBUG "X:/Projects/c voxel/out/build/x64-debug/lib/cglm/cglm-0.dll"
+  IMPORTED_IMPLIB_DEBUG "Z:/Github/c voxel/out/build/x64-debug/lib/cglm/cglm.lib"
+  IMPORTED_LOCATION_DEBUG "Z:/Github/c voxel/out/build/x64-debug/lib/cglm/cglm-0.dll"
   )
 
 # This file does not depend on other imported targets which have

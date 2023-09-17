@@ -9,24 +9,24 @@ uniform mat4 projection;
 out vec2 texCoord;
 flat out uint normal;
 flat out uint ao;
-const uint chunk_size = 32;
+const uint chunk_size = 32u;
 out float shade;
 
-float normal_shades[6] = {
+float normal_shades[6] = float[6] (
  0.8f,
  0.85f,
  0.9f,
  0.87f,
  1.0f,
  0.6f
-};
+);
 
-float ao_shades[4] = {
+float ao_shades[4] = float[4] (
 0.4f,
 0.6f,
 0.8f,
-1.0f,
-};
+1.0f
+);
 
 vec2 texCoords[4] = vec2[4] (
 

@@ -1,22 +1,22 @@
 
-if (NOT EXISTS "X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt")
-  message(FATAL_ERROR "Cannot find install manifest: \"X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt\"")
+if (NOT EXISTS "Z:/Github/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt")
+  message(FATAL_ERROR "Cannot find install manifest: \"Z:/Github/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt\"")
 endif()
 
-file(READ "X:/Projects/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt" files)
+file(READ "Z:/Github/c voxel/out/build/x64-debug/lib/glfw/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})
   message(STATUS "Uninstalling \"$ENV{DESTDIR}${file}\"")
   if (EXISTS "$ENV{DESTDIR}${file}")
-    exec_program("X:/Programs/VisualStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
+    exec_program("C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
                  OUTPUT_VARIABLE rm_out
                  RETURN_VALUE rm_retval)
     if (NOT "${rm_retval}" STREQUAL 0)
       MESSAGE(FATAL_ERROR "Problem when removing \"$ENV{DESTDIR}${file}\"")
     endif()
   elseif (IS_SYMLINK "$ENV{DESTDIR}${file}")
-    EXEC_PROGRAM("X:/Programs/VisualStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
+    EXEC_PROGRAM("C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe" ARGS "-E remove \"$ENV{DESTDIR}${file}\""
                  OUTPUT_VARIABLE rm_out
                  RETURN_VALUE rm_retval)
     if (NOT "${rm_retval}" STREQUAL 0)

@@ -26,7 +26,6 @@ void window_resize_callback(GLFWwindow* window, int width, int height) {
     state.cam->viewport_width = width;
 }
 
-
 int main()
 { 
 	if (!glfwInit()) return -1;

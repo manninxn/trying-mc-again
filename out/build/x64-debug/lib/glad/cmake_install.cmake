@@ -1,8 +1,8 @@
-# Install script for directory: X:/Projects/c voxel/lib/glad
+# Install script for directory: Z:/Github/c voxel/lib/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "X:/Projects/c voxel/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "Z:/Github/c voxel/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("X:/Projects/c voxel/out/build/x64-debug/lib/glad/src/cmake_install.cmake")
+  include("Z:/Github/c voxel/out/build/x64-debug/lib/glad/src/cmake_install.cmake")
 
 endif()
 
