@@ -50,16 +50,16 @@ The CXX compiler identification is MSVC, found in "Z:/Github/c voxel/out/build/x
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: Z:/Github/c voxel/out/build/x64-debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_c9706 && [1/2] Building C object CMakeFiles\cmTC_c9706.dir\CMakeCCompilerABI.c.obj
-[2/2] Linking C executable cmTC_c9706.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_e4572 && [1/2] Building C object CMakeFiles\cmTC_e4572.dir\CMakeCCompilerABI.c.obj
+[2/2] Linking C executable cmTC_e4572.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: Z:/Github/c voxel/out/build/x64-debug/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_78977 && [1/2] Building CXX object CMakeFiles\cmTC_78977.dir\CMakeCXXCompilerABI.cpp.obj
-[2/2] Linking CXX executable cmTC_78977.exe
+Run Build Command(s):C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe cmTC_35a93 && [1/2] Building CXX object CMakeFiles\cmTC_35a93.dir\CMakeCXXCompilerABI.cpp.obj
+[2/2] Linking CXX executable cmTC_35a93.exe
 
 
 
