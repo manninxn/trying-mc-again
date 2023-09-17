@@ -1,9 +1,9 @@
+
+#define FNL_IMPL
 #include "chunk.h"
 #include <stdio.h>
 #include "block.h"
 #include <memory.h>
-#define FNL_IMPL
-#include "noise.h"
 
 chunk* chunk_new(int xpos, int ypos, int zpos) {
 	chunk* this = malloc(sizeof(chunk));
@@ -19,6 +19,14 @@ chunk* chunk_new(int xpos, int ypos, int zpos) {
 	this->num_elems = 0;
 	vao_attribute(this->vao, this->vert_vbo, 0, 1, GL_UNSIGNED_INT, sizeof(int), 0);
 	vao_attribute(this->vao, this->lighting_vbo, 1, 1, GL_UNSIGNED_INT,  sizeof(int), 0);
+	this->build_lighting = true;
+	this->build_mesh = true;
+	this->mesh_regen_ready = false;
+	this->lighting_regen_ready = false;
+	this->mutex = CreateMutex(
+		NULL,              // default security attributes
+		FALSE,             // initially not owned
+		NULL);             // unnamed mutex
 	return this;
 }
 
@@ -45,7 +53,7 @@ int vertex_ao(side1, side2, corner) {
 }
 
 void chunk_build_lighting(chunk* this) {
-	unsigned int* lighting = malloc(this->num_verts * sizeof(unsigned int));
+	this->lighting_data = malloc(this->num_verts * sizeof(unsigned int));
 	unsigned int vert_index = 0;
 	for (int i = 0; i < BLOCKS_PER_CHUNK; i++) {
 		int x = i / (CHUNK_SIZE * CHUNK_SIZE);
@@ -77,41 +85,43 @@ void chunk_build_lighting(chunk* this) {
 					index = (vert + 3) % 4;
 				}
 
-				lighting[vert_index] = aos[index];
+				this->lighting_data[vert_index] = aos[index];
 				vert_index++;
 			}
 		}
 	}
 	
-	vbo_buffer_data(this->lighting_vbo, lighting, sizeof(int) * this->num_verts);
-	free(lighting);
+	
+	
+	this->build_lighting = false;
+	this->lighting_regen_ready = true;
 }
 
+void chunk_generate(chunk* this, noise_params* noise) {
+	// pass 1: set blocks
+	for (int i = 0; i < BLOCKS_PER_CHUNK; i++) {
+		int x = this->pos[0] * CHUNK_SIZE + i / (CHUNK_SIZE * CHUNK_SIZE);
+		int y = this->pos[1] * CHUNK_SIZE + (i / CHUNK_SIZE) % CHUNK_SIZE;
+		int z = this->pos[2] * CHUNK_SIZE + i % CHUNK_SIZE;
+		float height = 1.0f + fnlGetNoise2D(&noise->main, x, z);
+		//this->blocks[i] = (y - 5) < (height * 1.5f);
+		int dirt_or_grass = fnlGetNoise3D(&noise->main, x, y + 1, z) > 0 ? DIRT : GRASS;
+		this->blocks[i] = fnlGetNoise3D(&noise->main, x, y, z) > 0 ? dirt_or_grass : AIR;
+		unsigned char block = this->blocks[i];
+	}
+	this->is_generated = true;
+}
+
+
 void chunk_build_mesh(chunk* this) {
-	unsigned int* verts = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 4 * 6);
+
+	this->mesh_data = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 4 * 6);
 	
-	unsigned int* elements = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 6 * 6);
+	this->mesh_indices_data = malloc(BLOCKS_PER_CHUNK * sizeof(unsigned int) * 6 * 6);
 	
 	unsigned int num_verts = 0;
 	unsigned int num_elems = 0;
 	int index_offset = 0;
-	fnl_state noise = fnlCreateState();
-	noise.noise_type = FNL_NOISE_OPENSIMPLEX2;
-	noise.frequency = 0.05f;
-	
-
-	// pass 1: set blocks
-	for (int i = 0; i < BLOCKS_PER_CHUNK; i++) {
-		int x = i / (CHUNK_SIZE * CHUNK_SIZE);
-		int y = (i / CHUNK_SIZE) % CHUNK_SIZE;
-		int z = i % CHUNK_SIZE;
-		float height = 1.0f + fnlGetNoise2D(&noise, x, z);
-		//this->blocks[i] = (y - 5) < (height * 1.5f);
-		int dirt_or_grass = fnlGetNoise3D(&noise, x, y + 1, z) > 0 ? DIRT : GRASS;
-		this->blocks[i] = fnlGetNoise3D(&noise, x, y, z) > 0 ? dirt_or_grass : AIR;
-		unsigned char block = this->blocks[i];
-	}
-	noise.frequency = 0.1f;
 	// pass 2: build mesh
 	for (int i = 0; i < BLOCKS_PER_CHUNK; i++) {
 		int x = i / (CHUNK_SIZE * CHUNK_SIZE);
@@ -147,11 +157,11 @@ void chunk_build_mesh(chunk* this) {
 					index = (vert + 3) % 4;
 				}
 
-				verts[num_verts] = v[index];
+				this->mesh_data[num_verts] = v[index];
 				num_verts++;
 			}
 			for (int index = 0; index < 6; index++) {
-				elements[num_elems] = index_offset + FACE_INDICES[index];
+				this->mesh_indices_data[num_elems] = index_offset + FACE_INDICES[index];
 				num_elems++;
 			}
 			index_offset += 4;
@@ -159,22 +169,42 @@ void chunk_build_mesh(chunk* this) {
 
 	}
 
-	vbo_buffer_data(this->ebo, elements, sizeof(int) * num_elems);
-	vbo_buffer_data(this->vert_vbo, verts, sizeof(int) * num_verts);
 	
 	this->num_elems = num_elems;
 	this->num_verts = num_verts;
-	free(elements);
-	free(verts);
 
-	chunk_build_lighting(this);
+	this->build_mesh = false;
+	this->mesh_regen_ready = true;
 	
 }
 
+void chunk_finalize_mesh_build(chunk* this) {
+	vbo_buffer_data(this->ebo, this->mesh_indices_data, sizeof(int) * this->num_elems);
+	vbo_buffer_data(this->vert_vbo, this->mesh_data, sizeof(int) * this->num_verts);
+	free(this->mesh_data);
+	free(this->mesh_indices_data);
+	this->mesh_regen_ready = false;
+}
+
+void chunk_finalize_lighting_build(chunk* this) {
+	vbo_buffer_data(this->lighting_vbo, this->lighting_data, sizeof(int) * this->num_verts);
+	free(this->lighting_data);
+	this->lighting_regen_ready = false;
+}
+
+void chunk_update(chunk* this) {
+
+	if (this->mesh_regen_ready) {
+		chunk_finalize_mesh_build(this);
+	}
+	if (this->lighting_regen_ready) {
+		chunk_finalize_lighting_build(this);
+	}
+}
+
+
 void chunk_render(chunk* this) {
 	vao_bind(this->vao);
-	
-	
 	vbo_bind(this->ebo);
 	glDrawElements(GL_TRIANGLES, this->num_elems, GL_UNSIGNED_INT, 0);
 }

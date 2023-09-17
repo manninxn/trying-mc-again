@@ -2,18 +2,42 @@
 #define CHUNK_H
 #include "vbo.h"
 #include "vao.h"
-#include <cglm/vec3.h>
+#include <cglm/ivec3.h>
+
+#include <stdbool.h>
+#include <windows.h>
+
+
+#include "noise.h"
+
 #define CHUNK_SIZE 32
 #define BLOCKS_PER_CHUNK CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE
+
+typedef struct {
+	fnl_state main;
+} noise_params;
+
+
+typedef bool flag;
+
 typedef struct {
 	unsigned char blocks[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
-	vec3 pos;
+	ivec3 pos;
 	vbo* vert_vbo;
 	vbo* lighting_vbo;
 	vbo* ebo;
 	vao* vao;
 	unsigned int num_elems;
 	unsigned int num_verts;
+	flag build_mesh;
+	flag build_lighting;
+	flag is_generated;
+	flag lighting_regen_ready;
+	unsigned int* lighting_data;
+	flag mesh_regen_ready;
+	unsigned int* mesh_data;
+	unsigned int* mesh_indices_data;
+	HANDLE mutex;
 } chunk;
 
 #define chunk_block_at(chunk, x, y, z) (chunk->blocks[((x) * CHUNK_SIZE * CHUNK_SIZE) + ((y) * CHUNK_SIZE) + (z)])
@@ -143,7 +167,8 @@ chunk* chunk_new(int xpos, int ypos, int zpos);
 void chunk_build_mesh(chunk* this);
 void chunk_build_lighting(chunk* this);
 void chunk_render(chunk* this);
-
+void chunk_update(chunk* this);
+void chunk_generate(chunk* this, noise_params* noise);
 #define block_or_default(chunk, x, y, z, def)  (block_in_bounds(x, y, z) ? chunk_block_at(chunk, x, y, z) : def)
 
 #endif

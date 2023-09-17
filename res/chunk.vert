@@ -5,7 +5,6 @@ uniform ivec3 chunk_pos;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-
 out vec2 texCoord;
 flat out uint normal;
 flat out uint ao;
@@ -43,11 +42,11 @@ void main()
 
 	uint index = (vertex_data & 0xC0000000u) >> 30u;
 
-	uint pos_x = (vertex_data & 1056964608u) >> 24u;
+	uint pos_x = (uint(chunk_pos.x) * chunk_size) + ((vertex_data & 1056964608u) >> 24u);
 
-	uint pos_y = (vertex_data & 0xFC0000u) >> 18u;
+	uint pos_y = (uint(chunk_pos.y) * chunk_size) + ((vertex_data & 0xFC0000u) >> 18u);
 
-	uint pos_z = (vertex_data & 0x3F000u) >> 12u;
+	uint pos_z = (uint(chunk_pos.z) * chunk_size) + ((vertex_data & 0x3F000u) >> 12u);
 
 	float sprite_x = float((vertex_data & 0xF00u) >> 8u);
 	float sprite_y = float((vertex_data & 0xF0u) >> 4u);
