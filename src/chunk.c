@@ -110,6 +110,7 @@ void chunk_generate(chunk* this, noise_params* noise) {
 		unsigned char block = this->blocks[i];
 	}
 	this->is_generated = true;
+	printf("Generated chunk (%d, %d, %d)\n", this->pos[0], this->pos[1], this->pos[2]);
 }
 
 

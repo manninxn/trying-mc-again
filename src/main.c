@@ -84,12 +84,16 @@ int main()
     texture* atlas = texture_from_file("res/atlas.png");
     state.sky_light = 15;
     long ticks = 0;
+
+    int size = 16;
     
-    world* world = world_new(3);
-    for(int x = 0; x < 3; x++)
-        for(int y = 0; y < 3; y++)
-            for(int z = 0; z < 3; z++)
+    world* world = world_new(size);
+    for(int x = 0; x < size; x++)
+        for(int y = 0; y < size; y++)
+            for(int z = 0; z < size; z++)
                 world_generate_chunk(world, (ivec3) { x, y, z });
+
+
     shader_uniform_texture(chunk_shader, "atlas", atlas, 0);
     while (!glfwWindowShouldClose(state.window) && !exit)
     {

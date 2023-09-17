@@ -16,6 +16,7 @@ typedef struct {
 	HANDLE meshing_thread;
 	HANDLE chunk_access_mutex;
 	DWORD meshing_thread_id;
+	int queued_mesh_operations;
 } world;
 
 

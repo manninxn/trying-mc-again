@@ -33,28 +33,35 @@ world* world_new(int render_distance) {
 	return this;
 }
 
+#define MAX_OPS_PER_FRAME 1
+
 DWORD WINAPI chunk_meshing(LPVOID lpParam) {
 		world* this = (world*)lpParam;
 		HANDLE mutex = this->chunk_access_mutex;
-		int i = 0;
 	while (true) {
 
+		DWORD result = WaitForSingleObject(
+			this->chunk_access_mutex,    // handle to mutex
+			INFINITE);  // no time-out interval
 
-		DWORD dwCount = 0, result;
+		for (int i = 0; i < this->loaded_chunks; i++) {
+			
+			if (this->queued_mesh_operations >= MAX_OPS_PER_FRAME) break;
+			chunk* chunk = this->chunks[i];
 
-		if (this->loaded_chunks == 0) continue;
-		// Request ownership of mutex.
-		
-		i %= this->loaded_chunks;
+			this->queued_mesh_operations += chunk->build_mesh | chunk->build_lighting;
 
-		chunk* chunk = this->chunks[i];
-		if (chunk->build_mesh) {
-			chunk_build_mesh(chunk);
+			if (chunk->build_mesh) {
+				chunk_build_mesh(chunk);
+			}
+			
+			if (chunk->build_lighting) {
+				chunk_build_lighting(chunk);
+			}
+			
 		}
-		if (chunk->build_lighting) {
-			chunk_build_lighting(chunk);
-		}
-		i++;
+
+		ReleaseMutex(this->chunk_access_mutex);
 		
 
 
@@ -93,6 +100,8 @@ void world_update(world* this) {
 		chunk* chunk = this->chunks[i];
 
 		chunk->build_lighting |= rebuild_lighting;
+
+		if (chunk->lighting_regen_ready | chunk->mesh_regen_ready) this->queued_mesh_operations -= 1;
 		chunk_update(chunk);
 
 
