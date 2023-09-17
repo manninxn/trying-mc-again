@@ -12,6 +12,7 @@
 #include "block.h"
 #include <time.h>
 #include "skybox.h"
+#include "world.h"
 #include <math.h>
 
 
@@ -70,8 +71,6 @@ int main()
     state.delta_time = 0.016f;
     state.cam = camera_new(64, 0.1, 100);
 
-    chunk* chunk = chunk_new(0, 0, 0);
-    chunk_build_mesh(chunk);
 
     glfwSetInputMode(state.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     bool exit = false;
@@ -83,29 +82,39 @@ int main()
     clock_t time = clock();
     texture* atlas = texture_from_file("res/atlas.png");
     state.sky_light = 15;
-    int light_level = state.sky_light;
+    long ticks = 0;
+
+    int size = 16;
+    
+    world* world = world_new(size);
+    for(int x = 0; x < size; x++)
+        for(int y = 0; y < size; y++)
+            for(int z = 0; z < size; z++)
+                world_generate_chunk(world, (ivec3) { x, y, z });
+
+
     shader_uniform_texture(chunk_shader, "atlas", atlas, 0);
     while (!glfwWindowShouldClose(state.window) && !exit)
     {
         if (tick_timer + CLOCKS_PER_SEC / state.tps < clock()) {
             state.ticks++;
+        world_update(world);
             
             tick_timer = clock();
         }
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        if (ticks != state.ticks) {
+            world_update(world);
+            ticks = state.ticks;
+        }
         skybox_render();
-        
         camera_handle_input(state.cam);
         //printf("(%f, %f, %f) %s\n", state.cam->look.x, state.cam->look.y, state.cam->look.z, cardinal_directions[camera_get_cardinal_direction(state.cam)]);
         shader_use(chunk_shader);
         shader_uniform_view_proj(chunk_shader, camera_get_view_projection(state.cam));
-        if (light_level != state.sky_light) {
-            light_level = state.sky_light;
-            chunk_build_lighting(chunk);
-        }
-        chunk_render(chunk);
+        world_render(world, chunk_shader);
 
         if (glfwGetKey(state.window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             exit = true;

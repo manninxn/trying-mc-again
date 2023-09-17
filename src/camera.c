@@ -15,7 +15,7 @@ camera* camera_new(float fov, float near_clip, float far_clip) {
 	this->last_y = 0;
 	this->pitch = 0;
 	this->yaw = 0;
-	this->speed = 1.f;
+	this->speed = 4.f;
 	this->viewport_width = 1920;
 	this->viewport_height = 1080;
 
